@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
             binding.secondaryText5.text = ""
             return
         }
-        binding.primaryText.text = chosenTask.guessWord
-        binding.secondaryText1.text = chosenTask.blockedWords[0]
-        binding.secondaryText2.text = chosenTask.blockedWords[1]
-        binding.secondaryText3.text = chosenTask.blockedWords[2]
-        binding.secondaryText4.text = chosenTask.blockedWords[3]
-        binding.secondaryText5.text = chosenTask.blockedWords[4]
+        val blockedWords = chosenTask.blockedWords.shuffled()
+        binding.primaryText.text = chosenTask.guessWord.uppercase()
+        binding.secondaryText1.text = blockedWords[0].uppercase()
+        binding.secondaryText2.text = blockedWords[1].uppercase()
+        binding.secondaryText3.text = blockedWords[2].uppercase()
+        binding.secondaryText4.text = blockedWords[3].uppercase()
+        binding.secondaryText5.text = blockedWords[4].uppercase()
     }
 
     private fun getTaskFile(): List<GuessTask> {
