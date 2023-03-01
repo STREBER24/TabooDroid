@@ -27,20 +27,19 @@ class MainActivity : AppCompatActivity() {
         val chosenTask = tasks.randomOrNull()
         if (chosenTask == null) {
             binding.primaryText.text = ""
-            binding.secondaryText1.text = ""
-            binding.secondaryText2.text = ""
-            binding.secondaryText3.text = ""
-            binding.secondaryText4.text = ""
-            binding.secondaryText5.text = ""
-            return
+            showSecondaryTexts(emptyList())
+        } else {
+            binding.primaryText.text = chosenTask.guessWord.uppercase()
+            showSecondaryTexts(chosenTask.blockedWords.shuffled().subList(0, 5))
         }
-        val blockedWords = chosenTask.blockedWords.shuffled()
-        binding.primaryText.text = chosenTask.guessWord.uppercase()
-        binding.secondaryText1.text = blockedWords[0].uppercase()
-        binding.secondaryText2.text = blockedWords[1].uppercase()
-        binding.secondaryText3.text = blockedWords[2].uppercase()
-        binding.secondaryText4.text = blockedWords[3].uppercase()
-        binding.secondaryText5.text = blockedWords[4].uppercase()
+    }
+
+    private fun showSecondaryTexts(list: List<String>) {
+        binding.secondaryText1.text = list.elementAtOrNull(0)
+        binding.secondaryText2.text = list.elementAtOrNull(1)
+        binding.secondaryText3.text = list.elementAtOrNull(2)
+        binding.secondaryText4.text = list.elementAtOrNull(3)
+        binding.secondaryText5.text = list.elementAtOrNull(4)
     }
 
     private fun getTaskFile(): List<GuessTask> {
@@ -58,4 +57,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class GuessTask(val guessWord: String, val blockedWords: List<String>)
+class GuessTask(val guessWord: String, blockedWords: List<String>) {
+    val blockedWords = blockedWords.map { a -> a.uppercase() }
+}
