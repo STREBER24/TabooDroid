@@ -15,8 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         val taskFile = getTaskFile()
         Toast.makeText(
-            this,
-            "Loaded file with ${taskFile.size.toString()} tasks.",
+            this, getString(R.string.loading_finished, taskFile.size),
             Toast.LENGTH_SHORT
         ).show()
 
