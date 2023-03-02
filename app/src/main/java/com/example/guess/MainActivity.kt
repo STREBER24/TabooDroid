@@ -2,6 +2,7 @@ package com.example.guess
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import com.example.guess.databinding.ActivityMainBinding
 
@@ -19,8 +20,24 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
+        val timer = getTimer()
+
         showRandomTask(taskFile)
-        binding.nextButton.setOnClickListener { showRandomTask(taskFile) }
+        binding.nextButton.setOnClickListener {
+            showRandomTask(taskFile)
+        }
+    }
+
+    private fun getTimer(): CountDownTimer {
+        return object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.timerText.text = (millisUntilFinished / 1000).toString()
+            }
+
+            override fun onFinish() {
+                binding.timerText.text = 0.toString()
+            }
+        }
     }
 
     private fun showRandomTask(tasks: List<GuessTask>) {
