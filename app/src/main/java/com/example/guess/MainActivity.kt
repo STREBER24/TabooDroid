@@ -1,9 +1,11 @@
 package com.example.guess
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Vibrator
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.guess.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +22,9 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
-        val timer = getTimer()
+        @Suppress("DEPRECATION")
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val timer = getTimer(vibrator)
 
         showRandomTask(taskFile)
         binding.nextButton.setOnClickListener {
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTimer(): CountDownTimer {
+    private fun getTimer(vibrator: Vibrator): CountDownTimer {
         return object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.timerText.text = (millisUntilFinished / 1000).toString()
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 binding.timerText.text = 0.toString()
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(200)
             }
         }
     }
