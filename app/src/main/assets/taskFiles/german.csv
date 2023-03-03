@@ -1,7 +1,8 @@
+Standard,Deutsch
 Operation,Krankenhaus,Doktor,Chirurg,Schneiden,Skalpell
 Maniküre,Fingernagel,Lack,Feile,Hand,Salon
 Hygiene,Körper,Dental,Produkte,Reinigen,Artikel
-Uralt,Früher,Geschichte,Vergangenheit,Zeit,Antik
+Uralt,Früher,Geschichte,Vergangenheit,Zeit,Antik,jung
 amputieren,Bein,Arm,Verletzung,Operation,abtrennen
 Sahne,Milch,Kuchen,Butter,weiß,weich
 Ananas,gelb,Frucht,süß,tropisch,Melone
@@ -19,7 +20,7 @@ Handtuch,schwimmen,Dusche,baden,nass,abtrocknen,frottee,wasser
 kredit,bank,immobilie,zinsen,schulden,leihen,sparkasse
 anzeige,display,monitor,werbung,zeitung,gesuch
 griechenland,staat,italien,mittelmeer,urlaub,antike,euro-krise
-tier,hund,katze,lebewesen,fleisch,kuh,hase,reptil,frosch,pferd
+tier,hund,katze,lebewesen,fleisch,kuh,hase,reptil,frosch,pferd,pflanze
 zone,bereich,grenze,gesperrt,gebiet,ort
 bergsteiger,mount everest,gebirge,sport,klettern,wanderer,alpen
 chor,gesang,gruppe,verein,singen,zusamme,musik,lieder
@@ -47,3 +48,8 @@ sauna,aufguss,schweden,heiß,welness,handtuch
 futter,tiere,essen,nahrung,trinken,trog
 bleistift,schrift,schreiben,kugelschreiber,radieren,papier,grau
 erziehen,kindertagesstätte,eltern,beibringen,verhalten,jugend
+reiten,pferde,esel,galopp,sattel,trab
+camping,wochenendausflug,zelt,lagerfeuer,schlafsack,Wohnmobil
+blasrohr,betäubungspfeil,tierarzt,zoo,pusten,schießen
+basketball,korb,sport,mannschaft,dribbeln,groß,kobe bryant
+intelligenz,iq-test,denken,schlau,dumm,hochbegabt

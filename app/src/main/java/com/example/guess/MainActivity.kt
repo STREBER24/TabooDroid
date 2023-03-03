@@ -1,6 +1,5 @@
 package com.example.guess
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Vibrator
 import android.util.Log
@@ -18,20 +17,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val taskFile = getTaskFile()
+        val files = FileManager(assets)
+        val allTaskFiles = files.getAllFilesInfo()
+        val (tasks, fileInfo) = files.getTaskFile(allTaskFiles[0].filename)
         Toast.makeText(
-            this, getString(R.string.loading_finished, taskFile.size),
-            Toast.LENGTH_SHORT
+            this,
+            getString(R.string.loading_finished, fileInfo.title, fileInfo.language, tasks.size),
+            Toast.LENGTH_LONG
         ).show()
 
         @Suppress("DEPRECATION")
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
         val timer = object : StatefulTimer(60) {
             override fun onTick(secondsUntilFinished: Int) {
                 binding.timerText.text = secondsUntilFinished.toString()
                 if (secondsUntilFinished < 4) {
-                    @Suppress("DEPRECATION")
-                    vibrator.vibrate(200)
+                    @Suppress("DEPRECATION") vibrator.vibrate(200)
                 }
             }
 
@@ -40,8 +41,7 @@ class MainActivity : AppCompatActivity() {
                 binding.timerText.text = ""
                 binding.primaryText.text = ""
                 showSecondaryTexts(emptyList())
-                @Suppress("DEPRECATION")
-                vibrator.vibrate(750)
+                @Suppress("DEPRECATION") vibrator.vibrate(750)
             }
         }
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 binding.nextButton.text = getString(R.string.next_button)
                 timer.start()
             }
-            showRandomTask(taskFile)
+            showRandomTask(tasks)
         }
     }
 
@@ -75,23 +75,4 @@ class MainActivity : AppCompatActivity() {
         binding.secondaryText4.text = list.elementAtOrNull(3)
         binding.secondaryText5.text = list.elementAtOrNull(4)
     }
-
-    private fun getTaskFile(): List<GuessTask> {
-        val allFiles = assets.list("taskFiles")
-        if (allFiles.isNullOrEmpty()) {
-            return emptyList()
-        }
-        val reader = assets.open("taskFiles/${allFiles[0]}").bufferedReader()
-        return reader.lineSequence()
-            .filter { it.isNotBlank() }
-            .map {
-                val line = it.split(',', ignoreCase = false)
-                GuessTask(line[0], line.subList(1, line.size))
-            }.toList()
-    }
-}
-
-class GuessTask(guessWord: String, blockedWords: List<String>) {
-    val guessWord = guessWord.uppercase()
-    val blockedWords = blockedWords.map { a -> a.uppercase() }
 }
