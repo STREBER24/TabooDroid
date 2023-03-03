@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showRandomTask(tasks: List<GuessTask>) {
         val chosenTask = tasks.randomOrNull()
         if (chosenTask == null) {
