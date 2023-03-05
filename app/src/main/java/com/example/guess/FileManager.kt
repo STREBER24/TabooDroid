@@ -34,7 +34,7 @@ class FileManager(private val assets: AssetManager) {
     }
 
     private fun parseHeader(filename: String, header: String): FileInfo {
-        val formattedHeader = header.split(",", ignoreCase = false)
+        val formattedHeader = header.split(":", ignoreCase = false)
         if (formattedHeader.size < 2) {
             Log.w(TAG, "failed to parse header '${header}'")
             return FileInfo(filename, "", "")
