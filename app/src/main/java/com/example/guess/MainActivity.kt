@@ -115,12 +115,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSecondaryTexts(list: List<String>) {
-        binding.secondaryText1.text = list.elementAtOrNull(0)
-        binding.secondaryText2.text = list.elementAtOrNull(1)
-        binding.secondaryText3.text = list.elementAtOrNull(2)
-        binding.secondaryText4.text = list.elementAtOrNull(3)
-        binding.secondaryText5.text = list.elementAtOrNull(4)
+    private fun showSecondaryTexts(textList: List<String>) {
+        binding.secondaryText1.text = textList.elementAtOrNull(0)
+        binding.secondaryText2.text = textList.elementAtOrNull(1)
+        binding.secondaryText3.text = textList.elementAtOrNull(2)
+        binding.secondaryText4.text = textList.elementAtOrNull(3)
+        binding.secondaryText5.text = textList.elementAtOrNull(4)
     }
 
     private fun hideSecondaryTexts(shownTexts: Int) {
