@@ -16,6 +16,7 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var timer: StatefulTimer
+    private var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        var score = 0
         if (!preferences.getBoolean("enable_timer", true)) {
             binding.nextButton.text = getString(R.string.next_button)
             binding.scoreText.text = "0"
@@ -60,15 +60,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            score += 1
             binding.nextButton.text = getString(R.string.next_button)
             if (timer.getState() == StatefulTimer.States.STOPPED &&
                 preferences.getBoolean("enable_timer", true)
             ) {
-                score = 0
+                resetScore()
                 timer.start()
+            } else {
+                score += 1
+                binding.scoreText.text = score.toString()
             }
-            binding.scoreText.text = score.toString()
             showRandomTask(tasks)
         }
     }
@@ -86,8 +87,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.action_reset_score -> resetScore()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun resetScore() {
+        score = 0
+        binding.scoreText.text = "0"
     }
 
     private fun showRandomTask(tasks: List<GuessTask>) {

@@ -9,4 +9,5 @@
     <string name="enable_timer_setting">Rundentimer aktivieren</string>
     <string name="enabled">aktiviert</string>
     <string name="disabled">deaktiviert</string>
+    <string name="reset_action">Punkte zurücksetzen</string>
 </resources>
