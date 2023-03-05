@@ -5,4 +5,7 @@
     <string name="start_timer">start</string>
     <string name="settings_action">Settings</string>
     <string name="timer_duration_setting">Timer duration in s</string>
+    <string name="enable_timer_setting">Enable timer</string>
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
 </resources>

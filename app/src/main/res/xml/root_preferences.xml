@@ -1,6 +1,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_timer"
+            android:summary="@string/enabled"
+            android:summaryOff="@string/disabled"
+            android:title="@string/enable_timer_setting" />
         <SeekBarPreference
             android:key="timer_duration"
             android:max="180"

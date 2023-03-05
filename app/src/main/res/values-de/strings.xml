@@ -2,8 +2,11 @@
 <resources>
     <string name="app_name">TabuDroid</string>
     <string name="settings_action">Einstellungen</string>
-    <string name="loading_finished">Datei \"%s\" (%s) mit %d Rätseln geladen.</string>
+    <string name="loading_finished">Datei \"%s\" (%s) mit %d Wörtern geladen.</string>
     <string name="next_button">Weiter</string>
     <string name="start_timer">Start</string>
     <string name="timer_duration_setting">Rundendauer in s</string>
+    <string name="enable_timer_setting">Rundentimer aktivieren</string>
+    <string name="enabled">aktiviert</string>
+    <string name="disabled">deaktiviert</string>
 </resources>

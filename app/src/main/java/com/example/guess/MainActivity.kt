@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var score = 0
-
         val files = FileManager(assets)
         val allTaskFiles = files.getAllFilesInfo()
         val (tasks, fileInfo) = files.getTaskFile(allTaskFiles[0].filename)
@@ -54,13 +52,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        var score = 0
+        if (!preferences.getBoolean("enable_timer", true)) {
+            binding.nextButton.text = getString(R.string.next_button)
+            binding.scoreText.text = "0"
+            showRandomTask(tasks)
+        }
+
         binding.nextButton.setOnClickListener {
-            if (timer.getState() == StatefulTimer.States.STOPPED) {
+            score += 1
+            binding.nextButton.text = getString(R.string.next_button)
+            if (timer.getState() == StatefulTimer.States.STOPPED &&
+                preferences.getBoolean("enable_timer", true)
+            ) {
                 score = 0
-                binding.nextButton.text = getString(R.string.next_button)
                 timer.start()
-            } else {
-                score += 1
             }
             binding.scoreText.text = score.toString()
             showRandomTask(tasks)
