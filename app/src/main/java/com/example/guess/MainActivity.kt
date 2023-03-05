@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
 import com.example.guess.databinding.ActivityMainBinding
 
@@ -33,10 +34,16 @@ class MainActivity : AppCompatActivity() {
         ).show()
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
+        val timerDuration = preferences.getInt("timer_duration", 60)
+        val timerEnabled = preferences.getBoolean("enable_timer", true)
+        Log.i(TAG, "loading preferences finished")
+
+        hideSecondaryTexts(numberOfBlockedWords)
 
         @Suppress("DEPRECATION")
         val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-        timer = object : StatefulTimer(preferences.getInt("timer_duration", 60)) {
+        timer = object : StatefulTimer(timerDuration) {
             override fun onTick(secondsUntilFinished: Int) {
                 binding.timerText.text = secondsUntilFinished.toString()
                 if (secondsUntilFinished < 4) {
@@ -53,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (!preferences.getBoolean("enable_timer", true)) {
+        if (!timerEnabled) {
             binding.nextButton.text = getString(R.string.next_button)
             binding.scoreText.text = "0"
             showRandomTask(tasks)
@@ -61,9 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.nextButton.setOnClickListener {
             binding.nextButton.text = getString(R.string.next_button)
-            if (timer.getState() == StatefulTimer.States.STOPPED &&
-                preferences.getBoolean("enable_timer", true)
-            ) {
+            if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
                 resetScore()
                 timer.start()
             } else {
@@ -116,5 +121,13 @@ class MainActivity : AppCompatActivity() {
         binding.secondaryText3.text = list.elementAtOrNull(2)
         binding.secondaryText4.text = list.elementAtOrNull(3)
         binding.secondaryText5.text = list.elementAtOrNull(4)
+    }
+
+    private fun hideSecondaryTexts(shownTexts: Int) {
+        binding.secondaryText1.isVisible = shownTexts > 0
+        binding.secondaryText2.isVisible = shownTexts > 1
+        binding.secondaryText3.isVisible = shownTexts > 2
+        binding.secondaryText4.isVisible = shownTexts > 3
+        binding.secondaryText5.isVisible = shownTexts > 4
     }
 }

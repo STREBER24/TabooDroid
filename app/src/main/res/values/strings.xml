@@ -9,4 +9,6 @@
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
     <string name="reset_action">Reset score</string>
+    <string name="number_of_blocked_words_settings">Blocked words</string>
+    <string name="number_of_blocked_words_summary">Choose, how many words cannot be used to explain: %s</string>
 </resources>

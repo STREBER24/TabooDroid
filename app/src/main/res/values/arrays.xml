@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="number_of_blocked_words_display">
+        <item>3 words</item>
+        <item>4 words</item>
+        <item>5 words</item>
+    </string-array>
+    <string-array name="number_of_blocked_words_values">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

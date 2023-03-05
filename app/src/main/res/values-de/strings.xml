@@ -10,4 +10,6 @@
     <string name="enabled">aktiviert</string>
     <string name="disabled">deaktiviert</string>
     <string name="reset_action">Punkte zurücksetzen</string>
+    <string name="number_of_blocked_words_settings">Anzahl Tabuwörter</string>
+    <string name="number_of_blocked_words_summary">Wähle, wie viele Wörter verboten werden: %s</string>
 </resources>
