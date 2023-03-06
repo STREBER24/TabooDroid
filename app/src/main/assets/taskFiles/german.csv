@@ -1,7 +1,7 @@
 Standard:Deutsch
-Operation,Krankenhaus,Doktor,Chirurg,Schneiden,Skalpell
+Operation,Krankenhaus,Doktor,Chirurg,Schneiden,Skalpell,bruch
 Maniküre,Fingernagel,Lack,Feile,Hand,Salon
-Hygiene,Körper,Dental,Produkte,Reinigen,Artikel
+Hygiene,Körper,Dental,Produkte,Reinigen,Artikel,desinfektionsmittel
 Uralt,Früher,Geschichte,Vergangenheit,Zeit,Antik,jung
 amputieren,Bein,Arm,Verletzung,Operation,abtrennen
 Sahne,Milch,Kuchen,Butter,weiß,weich,essen,sauer,eis,nachmittags
@@ -57,7 +57,7 @@ informatiker,Computer,programmieren,installieren,hardware,software,studium
 schneiderin,kleider,nähen,nähmaschine,stoffe,nadel,ändern
 maurer,haus,bauen,steine,baustelle,zement
 tischtuch,möbel,essen,stoff,decke,mahlzeit
-fernseher,television,radio,schauen,filme,nachrichten,tv,ard
+fernseher,television,radio,schauen,filme,nachrichten,tv,ard,programm,kanäle,kiste
 hühnerleiter,hahn,eier,gackern,krähen,hinaufsteigen,stall
 geist,klein,schloss,gespenst,fasching,verkleidung,erschrecken,spuken,fürchten
 bremsscheibe,auto,unten,kaputt,unfall,reifen,verschleiß
@@ -69,8 +69,8 @@ imker,honig,vegan,bienen,produktion,beruf
 logopädie,therapie,beruf,hier,sprache,sprechen
 holzspielzeugmacher,handwerk,beruf,früher,lackieren,bund,plastik
 kutscher,pferde,kutsche,beruf,wien,stadtführung,reiten
-schule,aufstehen,aufschreiben,lehrer,stunde,gymnasium,schüler,uni,test,klassenarbeit
-schokolade,naschen,bauchschmerzen,schmieren,milch,kakao
+schule,aufstehen,aufschreiben,lehrer,stunde,gymnasium,schüler,uni,test,klassenarbeit,student,lernen,studieren
+schokolade,naschen,bauchschmerzen,schmieren,milch,kakao,essen,süß,tafel,lindt
 schublade,versteck,verschwinden,schnell,schrank,schieben
 schubkarre,schuppen,schwer,spaß,garten,transport,reifen
 schale,naschkram,tisch,quatsch,glasschüssel,teller
@@ -108,10 +108,10 @@ computer,cd,maschine,usb,pc,bildschirm,monitor,laptop,pin
 brücke,fluss,überqueren,strasse,einstürzen,fähre
 verwandte,tante,onkel,familie,cousin,eltern
 schreien,laut,lärm,mund,rufen,kreischen
-foto,kamera,bild,rahmen,video,handy
+foto,kamera,bild,rahmen,video,handy,album,ferien,postkarte
 ferien,sommer,baden,strand,schulfrei,urlaub
 haare,kopf,perücke,friseur,blond,lang,frisur
-kino,film,popcorn,schauen,leinwand,natschos
+kino,film,popcorn,schauen,leinwand,natschos,ansehen,freude,sessel,date
 verein,club,fußball,turnen,gemeinnützig,sport
 klavier,instrument,tasten,piano,flügel,musik
 musik,lieder,songs,instrument,singen,gitarre
@@ -136,7 +136,7 @@ saal,raum,halle,tanzen,groß,säulen
 salat,gemüse,waschen,dressing,essig,paprika
 sohle,fuß,sand,sandale,schuh,boden,laufen
 nase,gesicht,putzen,niesen,atmen,erkältung,riechen
-vase,haus,strauß,wasser,schnittblumen,schenken,glas,behältnis
+blumenvase,haus,strauß,wasser,schnittblumen,schenken,glas,behältnis,keramik,dekoration
 dose,konserve,gelber sack,verschlossen,haltbar,lagerung
 hose,anziehen,reißverschluss,kurz,beine,kleidung
 meise,vogel,amsel,singt,nest,specht
@@ -146,7 +146,7 @@ sand,heiß,sonne,kiste,strand,feinkörnig
 sonne,heiß,eis,sommer,himmel,tagsüber
 silber,gold,edelmetall,hochzeit,glänzend,putzen,schmuck
 socke,anziehen,fuß,schmutzig,strumpf,schuh
-hund,bellen,haustier,spazieren,katze,wolf
+hund,bellen,haustier,spazieren,katze,wolf,beißen,knochen
 haus,wohnen,bauen,dach,gebäude,wohnung,eigenheim
 albtraum,nacht,schlafen,wunsch,panik,bett
 schlüssel,schloss,haus,fenster,tür,schließen
@@ -156,3 +156,26 @@ schwimmbad,wasser,freizeit,bademeister,sport,rutsche
 kuh,milch,tier,bauernhof,euter,stall
 schweiz,land,kreuz,kantone,alpen,bundesstaat
 sommer,jahreszeit,warm,ferien,frühling,herbst,winter
+auto,fahren,transport,wagen,reife,führerschein,räder
+anzug,hosen,jacke,anziehen,kleidungsstück,krawatte
+arzt,krankheit,patient,krankenhaus,medizinstudium,gesund
+wein,trinken,flasche,rot,korken,trauben
+paris,eifelturm,frankreich,hauptstadt,louvre,baguette
+spülbecken,spülen,geschirr,küche,spülmittel,wasserhahn
+sofa,sitzen,relaxen,wohnzimmer,möbelstück,coach
+tomaten,rot,rund,salat,gemüse,apfel
+park,gras,baum,sitzen,bank,sommer,ballspielen
+handy,sprechen,telefonieren,smartphone,freunde,gerät
+london,stdt,england,big ben,großbritannien,königin,queen elisabeth
+zahnarzt,zähne,mund,bohren,krone,füllung,panik
+supermarkt,einkaufszentrum,aldi,geschäft,lidl,essen
+rom,hauptstadt,italien,vatikan,pizza,kolosseum
+reisepass,stempel,personalausweis,identifizieren,flughafen,vorzeigen,bild
+apfel,obst,grün,essen,beißen,birne
+kissen,schlafen,bett,kopf,liegen,daunen
+pilot,flugzeug,beruf,reisen,fliegen,kapitän
+volleyball,spielen,mannschaft,ball,sport,netz
+new york,usa,hauptstadt,big apple,millionenmetropole,ostküste
+füller,schreiben,tintenpatrone,nachfüllen,notizblock,blau,papier
+restaurant,essen,freunde,abendessen,lokal,gastronomie
+autoradio,musik,hören,gerät,zuhörer,verkehrsnachrichten
