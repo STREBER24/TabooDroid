@@ -158,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         binding.secondaryText3.text = textList.elementAtOrNull(2)
         binding.secondaryText4.text = textList.elementAtOrNull(3)
         binding.secondaryText5.text = textList.elementAtOrNull(4)
+        binding.secondaryText6.text = textList.elementAtOrNull(5)
     }
 
     private fun hideSecondaryTexts(shownTexts: Int) {
@@ -166,5 +167,6 @@ class MainActivity : AppCompatActivity() {
         binding.secondaryText3.isVisible = shownTexts > 2
         binding.secondaryText4.isVisible = shownTexts > 3
         binding.secondaryText5.isVisible = shownTexts > 4
+        binding.secondaryText6.isVisible = shownTexts > 5
     }
 }

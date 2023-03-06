@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="number_of_blocked_words_display">
+        <item>2 Wörter</item>
         <item>3 Wörter</item>
         <item>4 Wörter</item>
         <item>5 Wörter</item>
+        <item>6 Wörter</item>
     </string-array>
 </resources>
