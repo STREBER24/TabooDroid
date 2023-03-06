@@ -24,20 +24,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
+        val timerDuration = preferences.getInt("timer_duration", 60)
+        val timerEnabled = preferences.getBoolean("enable_timer", true)
+        var chosenTaskFile = preferences.getString("choose_task_file", null)
+        Log.i(TAG, "loading preferences finished")
+
         val files = FileManager(assets)
-        val allTaskFiles = files.getAllFilesInfo()
-        val (tasks, fileInfo) = files.getTaskFile(allTaskFiles[0].filename)
+        if (chosenTaskFile == null) {
+            chosenTaskFile = files.getAllFilesInfo().random().filename
+        }
+        val (tasks, fileInfo) = files.getTaskFile(chosenTaskFile)
         Toast.makeText(
             this,
             getString(R.string.loading_finished, fileInfo.title, fileInfo.language, tasks.size),
             Toast.LENGTH_LONG
         ).show()
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
-        val timerDuration = preferences.getInt("timer_duration", 60)
-        val timerEnabled = preferences.getBoolean("enable_timer", true)
-        Log.i(TAG, "loading preferences finished")
 
         hideSecondaryTexts(numberOfBlockedWords)
 

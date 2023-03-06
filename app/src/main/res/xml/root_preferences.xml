@@ -24,4 +24,10 @@
             android:summary="@string/number_of_blocked_words_summary"
             android:title="@string/number_of_blocked_words_settings" />
     </PreferenceCategory>
+    <PreferenceCategory>
+        <ListPreference
+            android:key="choose_task_file"
+            android:summary="@string/choose_task_file_summary"
+            android:title="@string/choose_task_file" />
+    </PreferenceCategory>
 </PreferenceScreen>
