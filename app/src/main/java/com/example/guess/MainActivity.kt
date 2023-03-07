@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
+        val fillBlockedWords = preferences.getBoolean("fill_blocked_words", true)
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         if (!timerEnabled) {
             binding.nextButton.text = getString(R.string.next_button)
             binding.scoreText.text = "0"
-            showRandomTask(tasks, numberOfBlockedWords)
+            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
         binding.nextButton.setOnClickListener {
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 score += 1
                 binding.scoreText.text = score.toString()
             }
-            showRandomTask(tasks, numberOfBlockedWords)
+            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
     }
 
@@ -105,14 +106,18 @@ class MainActivity : AppCompatActivity() {
         binding.scoreText.text = "0"
     }
 
-    private fun showRandomTask(tasks: List<GuessTask>, numberOfBlockedWords: Int) {
+    private fun showRandomTask(
+        tasks: List<GuessTask>,
+        numberOfBlockedWords: Int,
+        fillBlockedWords: Boolean
+    ) {
         var chosenTask = tasks.randomOrNull()
         if (chosenTask == null) {
             binding.primaryText.text = ""
             showSecondaryTexts(emptyList())
             Log.w(TAG, "failed to show next random task")
         } else {
-            while (chosenTask!!.blockedWords.size < numberOfBlockedWords) {
+            while (chosenTask!!.blockedWords.size < numberOfBlockedWords && fillBlockedWords) {
                 chosenTask = addSimilarWord(tasks, chosenTask)
             }
             binding.primaryText.text = chosenTask.guessWord

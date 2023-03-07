@@ -14,4 +14,6 @@
     <string name="choose_task_file">Choose task-file</string>
     <string name="task_file_header_display">%s (%s)</string>
     <string name="choose_task_file_summary">Choose a file containing the words to guess and the blocked words.</string>
+    <string name="fill_blocked_words_setting">Fill blocked words</string>
+    <string name="fill_blocked_words_setting_summary">Add similar blocked words if file does not contain enought.</string>
 </resources>

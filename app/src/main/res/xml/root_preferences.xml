@@ -16,6 +16,11 @@
             app:showSeekBarValue="true" />
     </PreferenceCategory>
     <PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="fill_blocked_words"
+            android:summary="@string/fill_blocked_words_setting_summary"
+            android:title="@string/fill_blocked_words_setting" />
         <ListPreference
             android:defaultValue="5"
             android:entries="@array/number_of_blocked_words_display"
