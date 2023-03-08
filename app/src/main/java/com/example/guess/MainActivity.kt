@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinished() {
-                binding.nextButton.text = getString(R.string.start_timer)
+                setButtons(running = false)
                 binding.timerText.text = ""
                 binding.primaryText.text = ""
                 showSecondaryTexts(emptyList())
@@ -65,22 +65,41 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (!timerEnabled) {
-            binding.nextButton.text = getString(R.string.next_button)
+            setButtons(running = true)
             binding.scoreText.text = "0"
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
-        binding.nextButton.setOnClickListener {
-            binding.nextButton.text = getString(R.string.next_button)
+        binding.tabooButton.setOnClickListener {
+            setButtons(running = true)
             if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
                 resetScore()
                 timer.start()
             } else {
-                score += 1
-                binding.scoreText.text = score.toString()
+                addScore(-1)
             }
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
+
+        binding.skipButtons.setOnClickListener {
+            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+        }
+
+        binding.nextButton.setOnClickListener {
+            addScore(1)
+            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+        }
+    }
+
+    private fun setButtons(running: Boolean) {
+        binding.skipButtons.isVisible = running
+        binding.nextButton.isVisible = running
+        binding.tabooButton.text = getString(
+            when (running) {
+                true -> R.string.taboo_button
+                false -> R.string.start_timer
+            }
+        )
     }
 
     override fun onDestroy() {
@@ -104,6 +123,11 @@ class MainActivity : AppCompatActivity() {
     private fun resetScore() {
         score = 0
         binding.scoreText.text = "0"
+    }
+
+    private fun addScore(difference: Int) {
+        score += difference
+        binding.scoreText.text = score.toString()
     }
 
     private fun showRandomTask(

@@ -3,7 +3,6 @@
     <string name="app_name">TabuDroid</string>
     <string name="settings_action">Einstellungen</string>
     <string name="loading_finished">Datei \"%s\" (%s) mit %d Wörtern geladen.</string>
-    <string name="next_button">Weiter</string>
     <string name="start_timer">Start</string>
     <string name="timer_duration_setting">Rundendauer in s</string>
     <string name="enable_timer_setting">Rundentimer aktivieren</string>
@@ -17,4 +16,7 @@
     <string name="choose_task_file_summary">Wähle eine Datei mit den zu erratenden Wörtern und den Tabu-Wörtern.</string>
     <string name="fill_blocked_words_setting">Tabuwörter auffüllen</string>
     <string name="fill_blocked_words_setting_summary">Automatisch ähnliche Tabuwörter hinzufügen, wenn zu wenige in der Datei vorhanden sind.</string>
+    <string name="taboo_button">Tabu</string>
+    <string name="skip_button">Überspringen</string>
+    <string name="next_button">Weiter</string>
 </resources>
