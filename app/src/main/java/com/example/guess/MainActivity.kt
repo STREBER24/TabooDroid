@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
         val fillBlockedWords = preferences.getBoolean("fill_blocked_words", true)
-        val vibration = preferences.getBoolean("vibrate", true)
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(secondsUntilFinished: Int) {
                 binding.timerText.text = secondsUntilFinished.toString()
                 if (secondsUntilFinished < 4) {
-                    vibrate(vibration, 200)
+                    vibrate(200)
                 }
             }
 
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 binding.timerText.text = ""
                 binding.primaryText.text = ""
                 showSecondaryTexts(emptyList())
-                vibrate(vibration, 750)
+                vibrate(750)
             }
         }
 
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.tabooButton.setOnClickListener {
             Log.i(TAG, "taboo button clicked")
-            vibrate(vibration, 150)
+            vibrate(150)
             setButtons(running = true)
             if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
                 resetScore()
@@ -87,21 +86,21 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "skip button clicked")
             skipped += 1
             showScore()
-            vibrate(vibration, 150)
+            vibrate(150)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
         binding.nextButton.setOnClickListener {
             Log.i(TAG, "next button clicked")
-            vibrate(vibration, 150)
+            vibrate(150)
             score += 1
             showScore()
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
     }
 
-    private fun vibrate(enabled: Boolean, duration: Long) {
-        if (enabled) {
+    private fun vibrate(duration: Long) {
+        if (preferences.getBoolean("vibrate", true)) {
             @Suppress("DEPRECATION")
             (getSystemService(VIBRATOR_SERVICE) as Vibrator).vibrate(duration)
         }
