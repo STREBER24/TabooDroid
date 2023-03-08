@@ -37,11 +37,9 @@ class MainActivity : AppCompatActivity() {
             chosenTaskFile = files.getAllFilesInfo().random().filename
         }
         val (tasks, fileInfo) = files.getTaskFile(chosenTaskFile)
-        Toast.makeText(
-            this,
-            getString(R.string.loading_finished, fileInfo.title, fileInfo.language, tasks.size),
-            Toast.LENGTH_LONG
-        ).show()
+        showToast(
+            getString(R.string.loading_finished, fileInfo.title, fileInfo.language, tasks.size)
+        )
 
         hideSecondaryTexts(numberOfBlockedWords)
 
@@ -89,6 +87,10 @@ class MainActivity : AppCompatActivity() {
             addScore(1)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     private fun setButtons(running: Boolean) {
