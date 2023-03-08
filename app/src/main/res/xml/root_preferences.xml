@@ -40,5 +40,12 @@
             android:summary="@string/enabled"
             android:summaryOff="@string/disabled"
             android:title="@string/vibration" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/skip_settings"
+            android:entryValues="@array/skip_settings_values"
+            android:key="skip"
+            android:summary="@string/skip_setting_summary"
+            android:title="@string/skip_setting_title" />
     </PreferenceCategory>
 </PreferenceScreen>

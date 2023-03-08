@@ -1,6 +1,7 @@
 package com.example.guess
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Vibrator
 import android.util.Log
@@ -17,21 +18,22 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var timer: StatefulTimer
+    private lateinit var preferences: SharedPreferences
     private var score = 0
+    private var skipped = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
         val fillBlockedWords = preferences.getBoolean("fill_blocked_words", true)
         val vibration = preferences.getBoolean("vibrate", true)
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
-        Log.i(TAG, "loading preferences finished")
 
         val files = FileManager(assets)
         if (chosenTaskFile == null) {
@@ -43,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         hideSecondaryTexts(numberOfBlockedWords)
-
 
         timer = object : StatefulTimer(timerDuration) {
             override fun onTick(secondsUntilFinished: Int) {
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!timerEnabled) {
             setButtons(running = true)
-            binding.scoreText.text = "0"
+            resetScore()
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
@@ -76,13 +77,16 @@ class MainActivity : AppCompatActivity() {
                 resetScore()
                 timer.start()
             } else {
-                addScore(-1)
+                score -= 1
+                showScore()
             }
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
         binding.skipButtons.setOnClickListener {
             Log.i(TAG, "skip button clicked")
+            skipped += 1
+            showScore()
             vibrate(vibration, 150)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
@@ -90,7 +94,8 @@ class MainActivity : AppCompatActivity() {
         binding.nextButton.setOnClickListener {
             Log.i(TAG, "next button clicked")
             vibrate(vibration, 150)
-            addScore(1)
+            score += 1
+            showScore()
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
     }
@@ -137,12 +142,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetScore() {
         score = 0
-        binding.scoreText.text = "0"
+        skipped = 0
+        showScore()
     }
 
-    private fun addScore(difference: Int) {
-        score += difference
-        binding.scoreText.text = score.toString()
+    private fun showScore() {
+        val allowedSkips = preferences.getString("skip", "5")!!.toInt()
+        binding.scoreText.text = if (allowedSkips != -1 && (skipped - allowedSkips > 0)) {
+            score - skipped + allowedSkips
+        } else {
+            score
+        }.toString()
     }
 
     private fun showRandomTask(

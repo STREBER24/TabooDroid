@@ -20,4 +20,6 @@
     <string name="next_button">next</string>
     <string name="number_of_words">%d words</string>
     <string name="vibration">Vibration</string>
+    <string name="skip_setting_title">Skipable words</string>
+    <string name="skip_setting_summary">Number of words allowed to skip per round without influencing the score: %s</string>
 </resources>
