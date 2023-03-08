@@ -28,6 +28,8 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
+            val numberOfBlockedWordsPreference =
+                preferenceScreen.findPreference<ListPreference>("number_of_blocked_words")
             val enableTimerPreference =
                 preferenceScreen.findPreference<SwitchPreference>("enable_timer")
             val timerDurationPreference =
@@ -46,6 +48,11 @@ class SettingsActivity : AppCompatActivity() {
             chosenTaskFilePreference?.entries =
                 files.map { getString(R.string.task_file_header_display, it.title, it.language) }
                     .toTypedArray()
+
+            numberOfBlockedWordsPreference?.entryValues =
+                (2..6).map { it.toString() }.toTypedArray()
+            numberOfBlockedWordsPreference?.entries =
+                (2..6).map { getString(R.string.number_of_words, it) }.toTypedArray()
         }
     }
 }
