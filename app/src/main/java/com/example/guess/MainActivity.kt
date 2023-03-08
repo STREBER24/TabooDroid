@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.tabooButton.setOnClickListener {
+            Log.i(TAG, "taboo button clicked")
+            vibrate(vibration, 150)
             setButtons(running = true)
             if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
                 resetScore()
@@ -80,10 +82,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.skipButtons.setOnClickListener {
+            Log.i(TAG, "skip button clicked")
+            vibrate(vibration, 150)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
 
         binding.nextButton.setOnClickListener {
+            Log.i(TAG, "next button clicked")
+            vibrate(vibration, 150)
             addScore(1)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
         }
