@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
         val fillBlockedWords = preferences.getBoolean("fill_blocked_words", true)
+        val vibration = preferences.getBoolean("vibrate", true)
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
@@ -43,13 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         hideSecondaryTexts(numberOfBlockedWords)
 
-        @Suppress("DEPRECATION")
-        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+
         timer = object : StatefulTimer(timerDuration) {
             override fun onTick(secondsUntilFinished: Int) {
                 binding.timerText.text = secondsUntilFinished.toString()
                 if (secondsUntilFinished < 4) {
-                    @Suppress("DEPRECATION") vibrator.vibrate(200)
+                    vibrate(vibration, 200)
                 }
             }
 
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 binding.timerText.text = ""
                 binding.primaryText.text = ""
                 showSecondaryTexts(emptyList())
-                @Suppress("DEPRECATION") vibrator.vibrate(750)
+                vibrate(vibration, 750)
             }
         }
 
@@ -86,6 +86,13 @@ class MainActivity : AppCompatActivity() {
         binding.nextButton.setOnClickListener {
             addScore(1)
             showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+        }
+    }
+
+    private fun vibrate(enabled: Boolean, duration: Long) {
+        if (enabled) {
+            @Suppress("DEPRECATION")
+            (getSystemService(VIBRATOR_SERVICE) as Vibrator).vibrate(duration)
         }
     }
 

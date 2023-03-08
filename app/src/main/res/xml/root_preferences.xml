@@ -33,4 +33,12 @@
             android:summary="@string/choose_task_file_summary"
             android:title="@string/choose_task_file" />
     </PreferenceCategory>
+    <PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="vibrate"
+            android:summary="@string/enabled"
+            android:summaryOff="@string/disabled"
+            android:title="@string/vibration" />
+    </PreferenceCategory>
 </PreferenceScreen>
