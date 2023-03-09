@@ -1,7 +1,6 @@
 package com.example.guess
 
 import android.content.res.AssetManager
-import android.util.Log
 
 private const val TAG = "FileManager"
 
@@ -27,7 +26,7 @@ class FileManager(private val assets: AssetManager) {
     }
 
     fun getTaskFile(filename: String): Pair<List<GuessTask>, FileInfo> {
-        Log.i(TAG, "loading file '${filename}' ...")
+        Log().i(TAG, "loading file '${filename}' ...")
         val reader = assets.open("${folder}/${filename}").bufferedReader()
         val header = parseHeader(filename, reader.readLine())
         return reader.lineSequence().filter { it.isNotBlank() }.map {
@@ -39,7 +38,7 @@ class FileManager(private val assets: AssetManager) {
     private fun parseHeader(filename: String, header: String): FileInfo {
         val formattedHeader = header.split(":", ignoreCase = false)
         if (formattedHeader.size < 2) {
-            Log.w(TAG, "failed to parse header '${header}'")
+            Log().w(TAG, "failed to parse header '${header}'")
             return FileInfo(filename, "", "")
         }
         return FileInfo(filename, formattedHeader[0], formattedHeader[1])

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Vibrator
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.tabooButton.setOnClickListener {
-            Log.i(TAG, "taboo button clicked")
+            Log().i(TAG, "taboo button clicked")
             vibrate(150)
             setButtons(running = true)
             if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.skipButtons.setOnClickListener {
-            Log.i(TAG, "skip button clicked")
+            Log().i(TAG, "skip button clicked")
             skipped += 1
             showScore()
             vibrate(150)
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            Log.i(TAG, "next button clicked")
+            Log().i(TAG, "next button clicked")
             vibrate(150)
             score += 1
             showScore()
@@ -164,14 +163,14 @@ class MainActivity : AppCompatActivity() {
         if (chosenTask == null) {
             binding.primaryText.text = ""
             showSecondaryTexts(emptyList())
-            Log.w(TAG, "failed to show next random task")
+            Log().w(TAG, "failed to show next random task")
         } else {
             while (chosenTask!!.blockedWords.size < numberOfBlockedWords && fillBlockedWords) {
                 chosenTask = addSimilarWord(tasks, chosenTask)
             }
             binding.primaryText.text = chosenTask.guessWord
             showSecondaryTexts(chosenTask.blockedWords.shuffled())
-            Log.i(TAG, "show random word '${chosenTask.guessWord}'")
+            Log().i(TAG, "show random word '${chosenTask.guessWord}'")
         }
     }
 

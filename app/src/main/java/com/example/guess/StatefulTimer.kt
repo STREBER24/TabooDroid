@@ -1,7 +1,6 @@
 package com.example.guess
 
 import android.os.CountDownTimer
-import android.util.Log
 
 private const val TAG = "StatefulTimer"
 
@@ -17,7 +16,7 @@ abstract class StatefulTimer(duration: Int) {
         }
 
         override fun onFinish() {
-            Log.i(TAG, "StatefulTimer finished")
+            Log().i(TAG, "StatefulTimer finished")
             onFinished()
             state = States.STOPPED
         }
@@ -31,12 +30,12 @@ abstract class StatefulTimer(duration: Int) {
         timer.cancel()
         timer.start()
         state = States.RUNNING
-        Log.i(TAG, "StatefulTimer started")
+        Log().i(TAG, "StatefulTimer started")
     }
 
     fun cancel() {
         timer.cancel()
         state = States.STOPPED
-        Log.i(TAG, "StatefulTimer canceled")
+        Log().i(TAG, "StatefulTimer canceled")
     }
 }
