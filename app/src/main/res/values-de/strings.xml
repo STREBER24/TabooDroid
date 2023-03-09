@@ -23,4 +23,5 @@
     <string name="vibration">Vibrieren</string>
     <string name="skip_setting_title">Überspringbare Wörter</string>
     <string name="skip_setting_summary">Anzahl Wörter, die ohne Punktstrafe übersprungen werden dürfen: %s</string>
+    <string name="about_action">Über das Projekt</string>
 </resources>

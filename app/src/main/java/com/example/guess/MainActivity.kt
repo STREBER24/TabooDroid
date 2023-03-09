@@ -134,6 +134,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.action_about -> startActivity(Intent(this, AboutActivity::class.java))
             R.id.action_reset_score -> resetScore()
         }
         return super.onOptionsItemSelected(item)

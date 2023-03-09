@@ -22,4 +22,5 @@
     <string name="vibration">Vibration</string>
     <string name="skip_setting_title">Skipable words</string>
     <string name="skip_setting_summary">Number of words allowed to skip per round without influencing the score: %s</string>
+    <string name="about_action">About</string>
 </resources>
