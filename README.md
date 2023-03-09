@@ -6,4 +6,4 @@ The app ist implemented with Kotlin in Android Studio.
 It consists of a main activity, a basic settings activity and an about activity.
 The main activity contains the shown words, a timer, a score and buttons to start the round and show the next word.
 
-It comes with translations and guessable words in english and german. The guessable words are stored [here](app/src/main/assets/taskFiles).
+It comes with translations and guessable words in english and german. The words are stored [here](app/src/main/assets/taskFiles).
