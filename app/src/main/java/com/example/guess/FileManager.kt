@@ -29,9 +29,9 @@ class FileManager(private val assets: AssetManager) {
         Log().i(TAG, "loading file '${filename}' ...")
         val reader = assets.open("${folder}/${filename}").bufferedReader()
         val header = parseHeader(filename, reader.readLine())
-        return reader.lineSequence().filter { it.isNotBlank() }.map {
-            val line = it.split(',', ignoreCase = false)
-            GuessTask(line[0], line.subList(1, line.size))
+        return reader.lineSequence().filter { it.isNotBlank() }.map { line ->
+            val words = line.split(',', ignoreCase = false).filter { it != "" }
+            GuessTask(words[0], words.subList(1, words.size))
         }.toList() to header
     }
 
