@@ -8,6 +8,7 @@ class FileInfo(val filename: String, val title: String, val language: String)
 class GuessTask(guessWord: String, blockedWords: List<String>) {
     val guessWord = guessWord.uppercase()
     val blockedWords = blockedWords.map { a -> a.uppercase() }
+
     fun toList(): List<String> {
         return listOf(guessWord) + blockedWords
     }
@@ -17,9 +18,7 @@ class FileManager(private val assets: AssetManager) {
     private val folder = "taskFiles"
     fun getAllFilesInfo(): List<FileInfo> {
         val allFilenames = assets.list(folder)
-        if (allFilenames.isNullOrEmpty()) {
-            return emptyList()
-        }
+        if (allFilenames.isNullOrEmpty()) return emptyList()
         return allFilenames.map {
             parseHeader(it, assets.open("${folder}/${it}").bufferedReader().readLine())
         }

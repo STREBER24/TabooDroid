@@ -47,9 +47,7 @@ class MainActivity : AppCompatActivity() {
         timer = object : StatefulTimer(timerDuration) {
             override fun onTick(secondsUntilFinished: Int) {
                 binding.timerText.text = secondsUntilFinished.toString()
-                if (secondsUntilFinished < 4) {
-                    vibrate(200)
-                }
+                if (secondsUntilFinished < 4) vibrate(200)
             }
 
             override fun onFinished() {
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             Log().i(TAG, "taboo button clicked")
             vibrate(150)
             setButtons(running = true)
-            if (timer.getState() == StatefulTimer.States.STOPPED && timerEnabled) {
+            if (timer.state == StatefulTimer.States.STOPPED && timerEnabled) {
                 resetScore()
                 timer.start()
             } else {
@@ -176,13 +174,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun addSimilarWord(tasks: List<GuessTask>, chosen: GuessTask): GuessTask {
         var additional = getSimilarWords(tasks, chosen, chosen.guessWord).randomOrNull()
-        if (additional == null) {
-            additional =
-                chosen.blockedWords.flatMap { getSimilarWords(tasks, chosen, it) }.randomOrNull()
-        }
-        if (additional == null) {
-            additional = getRandomWord(tasks, chosen)
-        }
+        if (additional == null) additional =
+            chosen.blockedWords.flatMap { getSimilarWords(tasks, chosen, it) }.randomOrNull()
+        if (additional == null) additional = getRandomWord(tasks, chosen)
         return GuessTask(chosen.guessWord, listOf(additional) + chosen.blockedWords)
     }
 
@@ -197,11 +191,7 @@ class MainActivity : AppCompatActivity() {
         word: String,
     ): List<String> {
         return tasks.flatMap {
-            if (it.toList().contains(word)) {
-                it.toList()
-            } else {
-                emptyList()
-            }
+            if (it.toList().contains(word)) it.toList() else emptyList()
         }.filter { !blocked.toList().contains(it) }
     }
 

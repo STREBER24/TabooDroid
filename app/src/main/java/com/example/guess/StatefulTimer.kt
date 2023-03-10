@@ -7,7 +7,7 @@ private const val TAG = "StatefulTimer"
 abstract class StatefulTimer(duration: Int) {
     enum class States { STOPPED, RUNNING }
 
-    private var state = States.STOPPED
+    var state = States.STOPPED
     abstract fun onTick(secondsUntilFinished: Int)
     abstract fun onFinished()
     private val timer = object : CountDownTimer((duration * 1000).toLong(), 1000) {
@@ -20,10 +20,6 @@ abstract class StatefulTimer(duration: Int) {
             onFinished()
             state = States.STOPPED
         }
-    }
-
-    fun getState(): States {
-        return state
     }
 
     fun start() {
