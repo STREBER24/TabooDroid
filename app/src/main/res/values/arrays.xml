@@ -18,4 +18,14 @@
         <item>5</item>
         <item>unlimited</item>
     </string-array>
+    <string-array name="task_generation_values">
+        <item>raw</item>
+        <item>fill</item>
+        <item>advanced</item>
+    </string-array>
+    <string-array name="task_generation">
+        <item>Choose raw task as it is in the file.</item>
+        <item>Choose task out of file and fill missing words.</item>
+        <item>Generate task out of any similar words in the file.</item>
+    </string-array>
 </resources>

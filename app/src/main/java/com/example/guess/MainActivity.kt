@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
-        val fillBlockedWords = preferences.getBoolean("fill_blocked_words", true)
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         if (!timerEnabled) {
             setButtons(running = true)
             resetScore()
-            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+            showRandomTask(tasks)
         }
 
         binding.tabooButton.setOnClickListener {
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 score -= 1
                 showScore()
             }
-            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+            showRandomTask(tasks)
         }
 
         binding.skipButtons.setOnClickListener {
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             skipped += 1
             showScore()
             vibrate(150)
-            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+            showRandomTask(tasks)
         }
 
         binding.nextButton.setOnClickListener {
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             vibrate(150)
             score += 1
             showScore()
-            showRandomTask(tasks, numberOfBlockedWords, fillBlockedWords)
+            showRandomTask(tasks)
         }
     }
 
@@ -153,17 +152,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showRandomTask(
-        tasks: List<GuessTask>,
-        numberOfBlockedWords: Int,
-        fillBlockedWords: Boolean
+        tasks: List<GuessTask>
     ) {
-        var chosenTask = tasks.randomOrNull()
+        val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
+        val generationMode = preferences.getString("task_generation", "fill")
+
+        var chosenTask = if (generationMode == "advanced")
+            GuessTask(getRandomWord(tasks, emptyList()), emptyList()) else tasks.randomOrNull()
         if (chosenTask == null) {
             binding.primaryText.text = ""
             showSecondaryTexts(emptyList())
             Log().w(TAG, "failed to show next random task")
         } else {
-            while (chosenTask!!.blockedWords.size < numberOfBlockedWords && fillBlockedWords) {
+            while (chosenTask!!.blockedWords.size < numberOfBlockedWords && generationMode != "raw") {
                 chosenTask = addSimilarWord(tasks, chosenTask)
             }
             binding.primaryText.text = chosenTask.guessWord
@@ -176,13 +177,13 @@ class MainActivity : AppCompatActivity() {
         var additional = getSimilarWords(tasks, chosen, chosen.guessWord).randomOrNull()
         if (additional == null) additional =
             chosen.blockedWords.flatMap { getSimilarWords(tasks, chosen, it) }.randomOrNull()
-        if (additional == null) additional = getRandomWord(tasks, chosen)
+        if (additional == null) additional = getRandomWord(tasks, chosen.toList())
         return GuessTask(chosen.guessWord, listOf(additional) + chosen.blockedWords)
     }
 
-    private fun getRandomWord(tasks: List<GuessTask>, blocked: GuessTask): String {
+    private fun getRandomWord(tasks: List<GuessTask>, blocked: List<String>): String {
         return tasks.flatMap { listOf(it.guessWord) + it.blockedWords }
-            .filter { !blocked.toList().contains(it) }.random()
+            .filter { !blocked.any { blockedWord -> blockedWord.contains(it.toRegex()) } }.random()
     }
 
     private fun getSimilarWords(
@@ -190,10 +191,11 @@ class MainActivity : AppCompatActivity() {
         blocked: GuessTask,
         word: String,
     ): List<String> {
-        return tasks.flatMap {
-            if (it.toList().contains(word)) it.toList() else emptyList()
-        }.filter { !blocked.toList().contains(it) }
+        return (tasks.filter { it.guessWord == word }.flatMap { it.blockedWords } +
+                tasks.filter { it.toList().contains(word) }.map { it.guessWord })
+            .filter { !blocked.toList().any { blockedWord -> blockedWord.contains(it.toRegex()) } }
     }
+
 
     private fun showSecondaryTexts(textList: List<String>) {
         binding.secondaryText1.text = textList.elementAtOrNull(0)

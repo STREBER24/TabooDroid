@@ -9,4 +9,9 @@
         <item>5</item>
         <item>beliebig viele</item>
     </string-array>
+    <string-array name="task_generation">
+        <item>Wähle vorgegebene Aufgabe rein aus Datei.</item>
+        <item>Wähle vorgegebene Aufgabe aus Datei und fülle Tabuwörter.</item>
+        <item>Erzeuge Aufgabe aus beliebigem Wort und ähnlichen Tabuwörtern.</item>
+    </string-array>
 </resources>

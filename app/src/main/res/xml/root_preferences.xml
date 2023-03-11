@@ -16,18 +16,18 @@
             app:showSeekBarValue="true" />
     </PreferenceCategory>
     <PreferenceCategory>
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="fill_blocked_words"
-            android:summary="@string/fill_blocked_words_setting_summary"
-            android:title="@string/fill_blocked_words_setting" />
+        <ListPreference
+            android:defaultValue="fill"
+            android:entries="@array/task_generation"
+            android:entryValues="@array/task_generation_values"
+            android:key="task_generation"
+            android:summary="@string/generate_tasks_summary"
+            android:title="@string/generate_tasks" />
         <ListPreference
             android:defaultValue="5"
             android:key="number_of_blocked_words"
             android:summary="@string/number_of_blocked_words_summary"
             android:title="@string/number_of_blocked_words_settings" />
-    </PreferenceCategory>
-    <PreferenceCategory>
         <ListPreference
             android:key="choose_task_file"
             android:summary="@string/choose_task_file_summary"
