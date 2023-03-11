@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory>
+    <PreferenceCategory android:title="@string/timer">
         <SwitchPreference
             android:defaultValue="true"
             android:key="enable_timer"
@@ -15,7 +15,7 @@
             app:min="10"
             app:showSeekBarValue="true" />
     </PreferenceCategory>
-    <PreferenceCategory>
+    <PreferenceCategory android:title="@string/tasks">
         <ListPreference
             android:defaultValue="fill"
             android:entries="@array/task_generation"
@@ -33,7 +33,7 @@
             android:summary="@string/choose_task_file_summary"
             android:title="@string/choose_task_file" />
     </PreferenceCategory>
-    <PreferenceCategory>
+    <PreferenceCategory android:title="@string/other">
         <SwitchPreference
             android:defaultValue="true"
             android:key="vibrate"

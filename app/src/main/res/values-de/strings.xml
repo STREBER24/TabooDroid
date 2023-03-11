@@ -24,4 +24,7 @@
     <string name="skip_setting_title">Überspringbare Wörter</string>
     <string name="skip_setting_summary">Anzahl Wörter, die ohne Punktstrafe übersprungen werden dürfen: %s</string>
     <string name="about_action">Über das Projekt</string>
+    <string name="timer">Rundentimer</string>
+    <string name="tasks">Aufgaben</string>
+    <string name="other">Sonstiges</string>
 </resources>
