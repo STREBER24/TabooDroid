@@ -4,12 +4,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.guess.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
@@ -18,8 +21,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var timer: StatefulTimer
     private lateinit var preferences: SharedPreferences
-    private var score = 0
+    private lateinit var scoreData: MutableList<Team>
     private var skipped = 0
+    private var round = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
+
+        scoreData = resources.getStringArray(R.array.team_names).map { Team(it, 0) }.toMutableList()
+        binding.recycleScore.layoutManager = LinearLayoutManager(this)
+        binding.recycleScore.adapter = RecycleAdapter(scoreData)
+        showHeader()
 
         val files = FileManager(assets)
         if (chosenTaskFile == null) {
@@ -55,12 +64,14 @@ class MainActivity : AppCompatActivity() {
                 binding.primaryText.text = ""
                 showSecondaryTexts(emptyList())
                 vibrate(750)
+                round += 1
+                showHeader()
             }
         }
 
         if (!timerEnabled) {
             setButtons(running = true)
-            resetScore()
+            showScore()
             showRandomTask(tasks)
         }
 
@@ -69,18 +80,21 @@ class MainActivity : AppCompatActivity() {
             vibrate(150)
             setButtons(running = true)
             if (timer.state == StatefulTimer.States.STOPPED && timerEnabled) {
-                resetScore()
+                skipped = 0
+                showScore()
                 timer.start()
             } else {
-                score -= 1
+                scoreData[getTeam()].score -= 1
                 showScore()
             }
             showRandomTask(tasks)
         }
 
         binding.skipButtons.setOnClickListener {
+            val allowedSkips = preferences.getString("skip", "5")!!.toInt()
             Log().i(TAG, "skip button clicked")
             skipped += 1
+            if (skipped > allowedSkips) scoreData[getTeam()].score -= 1
             showScore()
             vibrate(150)
             showRandomTask(tasks)
@@ -89,10 +103,20 @@ class MainActivity : AppCompatActivity() {
         binding.nextButton.setOnClickListener {
             Log().i(TAG, "next button clicked")
             vibrate(150)
-            score += 1
+            scoreData[getTeam()].score += 1
             showScore()
             showRandomTask(tasks)
         }
+    }
+
+    private fun getTeam(): Int {
+        return round % scoreData.size
+    }
+
+    private fun showHeader() {
+        binding.roundText.text = getString(R.string.round_counter, (round / 2) + 1)
+        binding.turnText.text =
+            getString(R.string.team_explaining, scoreData[getTeam()].name)
     }
 
     private fun vibrate(duration: Long) {
@@ -137,18 +161,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resetScore() {
-        score = 0
+        repeat(scoreData.size) { setScoreView(it, 0) }
         skipped = 0
-        showScore()
     }
 
     private fun showScore() {
-        val allowedSkips = preferences.getString("skip", "5")!!.toInt()
-        binding.scoreText.text = if (allowedSkips != -1 && (skipped - allowedSkips > 0)) {
-            score - skipped + allowedSkips
-        } else {
-            score
-        }.toString()
+        setScoreView(getTeam(), scoreData[getTeam()].score)
+    }
+
+    private fun setScoreView(index: Int, value: Int) {
+        binding.recycleScore.children.elementAtOrNull(index)
+            ?.findViewById<TextView>(R.id.team_score)?.text = value.toString()
     }
 
     private fun showRandomTask(
@@ -213,5 +236,35 @@ class MainActivity : AppCompatActivity() {
         binding.secondaryText4.isVisible = shownTexts > 3
         binding.secondaryText5.isVisible = shownTexts > 4
         binding.secondaryText6.isVisible = shownTexts > 5
+    }
+}
+
+class Team(val name: String, var score: Int)
+
+class RecycleAdapter(private val list: MutableList<Team>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return GroupViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.score_text, parent, false)
+        )
+    }
+
+    override fun getItemCount(): Int = list.size
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val dataList = list[position]
+        holder as GroupViewHolder
+        holder.score?.text = dataList.score.toString()
+        holder.name?.text = dataList.name
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    class GroupViewHolder(row: View) : RecyclerView.ViewHolder(row) {
+        val score = row.findViewById(R.id.team_score) as TextView?
+        val name = row.findViewById(R.id.team_name) as TextView?
     }
 }

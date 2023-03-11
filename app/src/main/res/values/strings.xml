@@ -26,4 +26,6 @@
     <string name="timer">Timer</string>
     <string name="tasks">Tasks</string>
     <string name="other">Other</string>
+    <string name="team_explaining">%s turn</string>
+    <string name="round_counter">round %d</string>
 </resources>

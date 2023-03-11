@@ -27,4 +27,6 @@
     <string name="timer">Rundentimer</string>
     <string name="tasks">Aufgaben</string>
     <string name="other">Sonstiges</string>
+    <string name="team_explaining">%s ist am Zug</string>
+    <string name="round_counter">%d. Runde</string>
 </resources>
