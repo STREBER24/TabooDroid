@@ -47,5 +47,12 @@
             android:key="skip"
             android:summary="@string/skip_setting_summary"
             android:title="@string/skip_setting_title" />
+        <SeekBarPreference
+            android:defaultValue="2"
+            android:key="number_of_teams"
+            android:max="8"
+            android:title="@string/number_of_teams"
+            app:min="1"
+            app:showSeekBarValue="true" />
     </PreferenceCategory>
 </PreferenceScreen>

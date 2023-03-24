@@ -19,5 +19,11 @@
     <string-array name="team_names">
         <item>Team Blau</item>
         <item>Team Rot</item>
+        <item>Team Gelb</item>
+        <item>Team Lila</item>
+        <item>Team Grün</item>
+        <item>Team Orange</item>
+        <item>Team Schwarz</item>
+        <item>Team Weiß</item>
     </string-array>
 </resources>

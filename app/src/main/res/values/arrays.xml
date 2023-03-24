@@ -35,5 +35,11 @@
     <string-array name="team_names">
         <item>Team blue</item>
         <item>Team red</item>
+        <item>Team yellow</item>
+        <item>Team purple</item>
+        <item>Team green</item>
+        <item>Team orange</item>
+        <item>Team black</item>
+        <item>Team white</item>
     </string-array>
 </resources>

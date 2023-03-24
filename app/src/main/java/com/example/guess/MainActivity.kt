@@ -34,9 +34,11 @@ class MainActivity : AppCompatActivity() {
         val numberOfBlockedWords = preferences.getString("number_of_blocked_words", "5")!!.toInt()
         val timerDuration = preferences.getInt("timer_duration", 60)
         val timerEnabled = preferences.getBoolean("enable_timer", true)
+        val numberOfTeams = preferences.getInt("number_of_teams", 2)
         var chosenTaskFile = preferences.getString("choose_task_file", null)
 
-        scoreData = resources.getStringArray(R.array.team_names).map { Team(it, 0) }.toMutableList()
+        val teamNames = resources.getStringArray(R.array.team_names)
+        scoreData = teamNames.slice(0 until numberOfTeams).map { Team(it, 0) }.toMutableList()
         binding.recycleScore.layoutManager = LinearLayoutManager(this)
         binding.recycleScore.adapter = RecycleAdapter(scoreData)
         showHeader()
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showHeader() {
-        binding.roundText.text = getString(R.string.round_counter, (round / 2) + 1)
+        binding.roundText.text = getString(R.string.round_counter, (round / scoreData.size) + 1)
         binding.turnText.text =
             getString(R.string.team_explaining, scoreData[getTeam()].name)
     }
